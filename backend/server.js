@@ -27,7 +27,7 @@ const b2 = new B2({
 
 // Update the PostgreSQL configuration
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL.replace('postgresql://', 'postgres://'),
     ssl: {
         rejectUnauthorized: false
     }
