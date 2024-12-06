@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'https://portfolio-backend-rtg8.onrender.com';
+
+console.log('Using API URL:', API_URL);
+
 const AdminContainer = styled.div`
   height: 100vh;
   display: flex;
