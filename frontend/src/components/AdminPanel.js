@@ -150,12 +150,12 @@ const AdminPanel = () => {
 
     try {
         // Add album with tracks
-        const albumResponse = await axios.post('http://localhost:5000/admin/albums', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
+        const albumResponse = await axios.post(`${API_URL}/admin/albums`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${token}`,
+          },
+      });
 
         console.log('Album and tracks added successfully:', albumResponse.data);
         
