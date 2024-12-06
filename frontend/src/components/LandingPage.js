@@ -80,7 +80,7 @@ const LandingPage = () => {
     e.preventDefault();
     if (code.length === 6) {
       try {
-        const response = await axios.post('http://localhost:5000/verify-code', { code });
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/verify-code`, { code });
         
         // Store token and admin status
         localStorage.setItem('token', response.data.token);
