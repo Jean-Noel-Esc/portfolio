@@ -25,11 +25,17 @@ const b2 = new B2({
     applicationKey: process.env.B2_APPLICATION_KEY
 });
 
+// Update the PostgreSQL configuration
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:1984@localhost:5432/portfolio_db',
-    ssl: process.env.DATABASE_URL ? {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
         rejectUnauthorized: false
-    } : false
+    }
+});
+
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
+    process.exit(-1);
 });
 
 // Admin login endpoint
@@ -149,6 +155,12 @@ app.post('/verify-code', async (req, res) => {
         res.status(500).json({ error: 'Login failed' });
     }
 });
+
+
+
+
+
+
 // Get download URL endpoint
 app.get('/download/:fileName(*)', async (req, res) => {
     try {
