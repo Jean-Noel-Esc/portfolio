@@ -27,14 +27,21 @@ const b2 = new B2({
 
 // Update the PostgreSQL configuration
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL.replace('postgresql://', 'postgres://'),
+    connectionString: process.env.DATABASE_URL.includes('postgres.render.com') 
+        ? process.env.DATABASE_URL 
+        : process.env.DATABASE_URL.replace('postgresql://', 'postgres://'),
     ssl: {
         rejectUnauthorized: false
     }
 });
 
+// Add more detailed error logging
 pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
+    console.error('Database connection error:', {
+        message: err.message,
+        stack: err.stack,
+        connectionString: process.env.DATABASE_URL
+    });
     process.exit(-1);
 });
 
