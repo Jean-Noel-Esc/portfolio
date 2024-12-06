@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import CustomAudioPlayer from './CustomAudioPlayer';
 
+const API_URL = process.env.REACT_APP_API_URL || 'https://portfolio-backend-rtg8.onrender.com';
+
 const MusicContainer = styled.div`
   padding: 2rem;
   background-color: black;
@@ -140,7 +142,7 @@ const MusicPage = () => {
           if (album.cover_image_path) {
             const cleanedPath = cleanPath(album.cover_image_path);
             promises.push(
-              axios.get(`http://localhost:5000/download/${cleanedPath}`)
+              axios.get(`${API_URL}/download/${cleanedPath}`)
                 .then(res => ({ 
                   path: album.cover_image_path, 
                   url: res.data.downloadUrl 
@@ -157,7 +159,7 @@ const MusicPage = () => {
               if (track && track.file_path) {
                 const cleanedPath = cleanPath(track.file_path);
                 promises.push(
-                  axios.get(`http://localhost:5000/download/${cleanedPath}`)
+                  axios.get(`${API_URL}/download/${cleanedPath}`)
                     .then(res => ({ 
                       path: track.file_path, 
                       url: res.data.downloadUrl 
