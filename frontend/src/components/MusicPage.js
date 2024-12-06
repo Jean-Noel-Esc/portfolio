@@ -129,7 +129,9 @@ const MusicPage = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/albums');
+        console.log('Fetching albums from:', `${API_URL}/albums`);
+        const response = await axios.get(`${API_URL}/albums`);
+        console.log('Albums response:', response.data);
         setAlbums(response.data);
         
         const urlPromises = response.data.flatMap(album => {
