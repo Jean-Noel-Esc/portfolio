@@ -25,13 +25,11 @@ const b2 = new B2({
     applicationKey: process.env.B2_APPLICATION_KEY
 });
 
-// Update the PostgreSQL configuration
 const pool = new Pool({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_DATABASE
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:1984@localhost:5432/portfolio_db',
+    ssl: process.env.DATABASE_URL ? {
+        rejectUnauthorized: false
+    } : false
 });
 
 // Admin login endpoint
